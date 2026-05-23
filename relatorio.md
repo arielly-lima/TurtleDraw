@@ -68,8 +68,6 @@ O nó implementa um controlador proporcional de dois estágios a cada iteração
 
 **Dificuldade encontrada:** Calibrar a velocidade foi o principal desafio no ROS 2. Velocidades lineares altas (> 2,0) faziam a tartaruga ultrapassar pontos consecutivos sem registrá-los, resultando em um desenho incompleto. Velocidades baixas (< 0,5) tornavam o percurso de ~1.000 pontos extremamente lento. O ganho angular alto (7,0) foi necessário para manter a trajetória precisa sem oscilações.
 
----
-
 ## Conclusão
 
-A pipeline desenvolvida demonstra com sucesso a cadeia completa de visão computacional aplicada à robótica: leitura de imagem → grayscale → suavização gaussiana iterativa → detecção de bordas com Sobel → ordenação de contorno → mapeamento de coordenadas → controle proporcional via ROS 2. As principais dificuldades estiveram na calibração de parâmetros em cada etapa, resolvidas por experimentação sistemática e análise visual dos resultados intermediários.
+A pipeline desenvolvida demonstra com sucesso a cadeia completa de visão computacional aplicada à robótica: ``leitura de imagem → grayscale → suavização gaussiana iterativa → detecção de bordas com Sobel → ordenação de contorno → mapeamento de coordenadas → controle proporcional via ROS 2``. As principais dificuldades estiveram na calibração de parâmetros em cada etapa, resolvidas por experimentação sistemática e análise visual dos resultados intermediários.
