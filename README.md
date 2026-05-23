@@ -2,6 +2,15 @@
 
 Pipeline de visão computacional que lê uma imagem, extrai seus contornos e controla a tartaruga do **Turtlesim** via ROS 2 para reproduzir o desenho na tela.
 
+**Vídeo de demonstração neste [link](https://youtu.be/grVeFU3jlhs)**
+
+<p align="center">
+
+**Resultado de saída:**
+![resutado saida](./notebooks/resultado_saida.png)
+
+</p>
+
 ## Estrutura do Repositório
 
 ```
