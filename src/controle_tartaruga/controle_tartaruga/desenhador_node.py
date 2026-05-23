@@ -10,26 +10,16 @@ import math
 import csv
 import time  # Adicionado para a pequena pausa inicial
 
-
 class DesenhadorTurtle(Node):
 
     def __init__(self):
         super().__init__('desenhador_turtle_node')
 
         # Publisher
-        self.publisher_ = self.create_publisher(
-            Twist,
-            '/turtle1/cmd_vel',
-            10
-        )
+        self.publisher_ = self.create_publisher(Twist, '/turtle1/cmd_vel', 10)
 
         # Subscriber
-        self.subscription = self.create_subscription(
-            Pose,
-            '/turtle1/pose',
-            self.pose_callback,
-            10
-        )
+        self.subscription = self.create_subscription(Pose, '/turtle1/pose', self.pose_callback, 10)
 
         # Clientes de Serviço para Teleport
         # Pose atual
@@ -65,9 +55,7 @@ class DesenhadorTurtle(Node):
             )
 
         except Exception as e:
-            self.get_logger().error(
-                f'Erro ao carregar CSV: {str(e)}'
-            )
+            self.get_logger().error(f'Erro ao carregar CSV: {str(e)}')
 
         # Execução do Drop Inicial Seguro
         req_teleport = TeleportAbsolute.Request()
@@ -104,17 +92,16 @@ class DesenhadorTurtle(Node):
         x_alvo, y_alvo = self.caminho[self.indice_atual]
 
         # cálculo do erro linear e angular
+        # O erro linear é a distância direta entre a posição atual e o ponto alvo
         dx = x_alvo - self.x_atual
         dy = y_alvo - self.y_atual
         erro_linear = math.sqrt(dx**2 + dy**2)
 
+        # O erro angular é a diferença entre a direção atual da tartaruga e a direção desejada para o ponto alvo
         angulo_desejado = math.atan2(dy, dx)
         erro_angular = angulo_desejado - self.theta_atual
 
-        erro_angular = math.atan2(
-            math.sin(erro_angular),
-            math.cos(erro_angular)
-        )
+        erro_angular = math.atan2(math.sin(erro_angular), math.cos(erro_angular))
 
         # Controle de velocidade baseado no erro linear e angular
         msg_vel = Twist()
@@ -134,9 +121,7 @@ class DesenhadorTurtle(Node):
             self.indice_atual += 1
 
             if self.indice_atual % 100 == 0:
-                self.get_logger().info(
-                    f'Ponto {self.indice_atual}/{len(self.caminho)}'
-                )
+                self.get_logger().info(f'Ponto {self.indice_atual}/{len(self.caminho)}')
 
         self.publisher_.publish(msg_vel)
 
